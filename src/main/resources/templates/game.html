@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CMPT 213 Online Hangman Game</title>
+</head>
+<body>
+
+    <h1 th:text="${gameID}"></h1>
+    <h2 th:text="${gameStatus}"></h2>
+    <h2 th:text="${gameNumOfGuess}"></h2>
+    <h2 th:text="${gameNumOfIncorrectGuess}"></h2>
+
+    <div >
+        <label> Progress:  </p></label>
+        <p th:text="${hiddenWord}"></p>
+    </div>
+    <form th:object="${game}" th:action="@{/game/{gid}(gid=${game.id})}"  modelAttribute="game" method="post" style="max-width:600px;">
+        <div class="form-group">
+            <div>
+                <label th:for="tries">Your guess:  </label>
+                <input class="input" th:name="userInput" th:id="tries" />
+            </div>
+        </div>
+        <input type="submit" value="Make a guess!" />
+    </form>
+
+
+</body>
+</html>
