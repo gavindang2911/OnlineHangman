@@ -115,17 +115,6 @@ public class Game {
 //                }
 
             }
-        } else { // DOn"T need this situation
-            String lowerCaseStringInput = input.toLowerCase();
-            // check if multi-char userInput is actual originalWord
-            if(word.contains(lowerCaseStringInput)) {
-                guesses.add(lowerCaseStringInput);
-                return true;
-            }
-            // false
-            else {
-                return false;
-            }
         }
         return false;
     }

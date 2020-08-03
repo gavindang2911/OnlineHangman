@@ -76,14 +76,12 @@ public class HangmanController {
 
         // validate user input
         if (!game.validateInput(userInput)) {
-//            // generate the word as underlines
-//            String hiddenWord = HangmanLogic.createHiddenWord(game.getWord(), game.getTries());
-//            setHiddenWordInSession(session, hiddenWord);
-//
-//            model.addAttribute("title", "Please check your input!");
-//            model.addAttribute("triesErrors", "Please enter a single letter.");
-//            model.addAttribute("game", game);
-//            model.addAttribute("hiddenWord", getHiddenWordInSession(session));
+            // generate the word as underlines
+            String hiddenWord = game.createHiddenWord();
+            String attemptLeft = "" + (8 - game.getNumOfIncorrectGuesses());
+            model.addAttribute("game", game);
+            model.addAttribute("attemptLeft", attemptLeft);
+            model.addAttribute("hiddenWord", hiddenWord);
 
             return "game";
         }

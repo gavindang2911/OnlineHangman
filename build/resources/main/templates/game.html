@@ -46,8 +46,8 @@
     <form th:object="${game}" th:action="@{/game/{gid}(gid=${game.id})}"  modelAttribute="game" method="post" style="max-width:600px;">
         <div class="form-group">
             <div>
-                <label th:for="tries">Your guess:  </label>
-                <input class="input" th:name="userInput" th:id="tries" />
+                <label>Your guess:  </label>
+                <input class="input" th:name="userInput" />
             </div>
         </div>
         <input type="submit" value="Make a guess!" />
