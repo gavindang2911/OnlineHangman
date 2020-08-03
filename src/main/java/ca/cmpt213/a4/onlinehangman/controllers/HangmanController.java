@@ -56,17 +56,12 @@ public class HangmanController {
         }
 
         gameList.add(game);
-        String gameID = "Game " + game.getId() + " page";
-        String gameStatus = "Status: " + game.getStatus();
-        String numOfGuess = "You have made " + game.getNumOfGuesses() + " guesses";
-        String numOfIncorrect = "You have made " + game.getNumOfIncorrectGuesses() + " incorrect guesses";
+        String attemptLeft = "" + (8 - game.getNumOfIncorrectGuesses());
+
         String hiddenWord = game.createHiddenWord();
 
         model.addAttribute("game", game);
-        model.addAttribute("gameID", gameID);
-        model.addAttribute("gameStatus", gameStatus);
-        model.addAttribute("gameNumOfGuess", numOfGuess);
-        model.addAttribute("gameNumOfIncorrectGuess", numOfIncorrect);
+        model.addAttribute("attemptLeft", attemptLeft);
         model.addAttribute("hiddenWord", hiddenWord);
 
         return "game";
@@ -94,29 +89,57 @@ public class HangmanController {
         }
 
         String hiddenWord = game.createHiddenWord();
-//        if(game.checkIfWin(hiddenWord)) {
-//
-//
-//            game.setStatus("Won");
-//
-//            model.addAttribute("title", "Game Over - You Win");
-//            model.addAttribute("game", game);
-//
-//            return "score";
-//        }
 
-        String gameID = "Game " + game.getId() + " page";
-        String gameStatus = "Status: " + game.getStatus();
-        String numOfGuess = "You have made " + game.getNumOfGuesses() + " guesses";
-        String numOfIncorrect = "You have made " + game.getNumOfIncorrectGuesses() + " incorrect guesses";
+        if(game.checkIfWin(hiddenWord)) {
+            game.setStatus("Won");
+            model.addAttribute("title", "Game Over - You Win");
+            model.addAttribute("game", game);
 
+            return "gameover";
+        }
+
+        if (game.getNumOfIncorrectGuesses() > 7) {
+            game.setStatus("Lost");
+            model.addAttribute("title", "Game Over - You Lost");
+            model.addAttribute("game", game);
+
+            return "gameover";
+        }
+
+        String attemptLeft = "" + (8 - game.getNumOfIncorrectGuesses());
         model.addAttribute("game", game);
-        model.addAttribute("gameID", gameID);
-        model.addAttribute("gameStatus", gameStatus);
-        model.addAttribute("gameNumOfGuess", numOfGuess);
-        model.addAttribute("gameNumOfIncorrectGuess", numOfIncorrect);
+        model.addAttribute("attemptLeft", attemptLeft);
         model.addAttribute("hiddenWord", hiddenWord);
 
+        return "game";
+    }
+
+    @GetMapping("game/{gameId}")
+    public String getGameID(@PathVariable("gameId") long gameId, Model model) {
+        for (Game game : gameList) {
+            if (game.getId() == gameId) {
+                if (game.getStatus() == "Active") {
+                    String attemptLeft = "" + (8 - game.getNumOfIncorrectGuesses());
+                    String hiddenWord = game.createHiddenWord();
+                    model.addAttribute("game", game);
+                    model.addAttribute("attemptLeft", attemptLeft);
+                    model.addAttribute("hiddenWord", hiddenWord);
+                    return "game";
+                }
+                else if (game.getStatus() == "Won") {
+                    model.addAttribute("title", "Game Over - You Win");
+                    model.addAttribute("game", game);
+
+                    return "gameover";
+                }
+                else {
+                    model.addAttribute("title", "Game Over - You Lost");
+                    model.addAttribute("game", game);
+
+                    return "gameover";
+                }
+            }
+        }
         return "game";
     }
 }

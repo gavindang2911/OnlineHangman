@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CMPT 213 Online Hangman Game</title>
+</head>
+<body>
+<form th:object="${game}" th:action="@{/score}"
+      modelAttribute="game">
+<h3 >
+    <label th:text="${title}"></label>
+</h3>
+
+<div class="form-group">
+
+    <div>
+        <label>Word: </label>
+        <label th:for="word" th:field="*{word}" th:text="${game.word}"></label>
+    </div>
+
+</div>
+</form>
+
+</body>
+</html>

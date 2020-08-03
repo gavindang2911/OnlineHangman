@@ -93,24 +93,27 @@ public class Game {
         } else if (input.length() == 1) {
             String lowerCaseStringInput = input.toLowerCase();
             // check if input is a valid char
-            char word = lowerCaseStringInput.charAt(0);
+            char letter = lowerCaseStringInput.charAt(0);
 
-            if (word >= 'a' && word <= 'z') {
+            if (letter >= 'a' && letter <= 'z') {
                 if(!this.word.contains(lowerCaseStringInput)){
                     numOfIncorrectGuesses++;
                 }
                 numOfGuesses++;
+                guesses.add(lowerCaseStringInput);
+                return true;
                 // else: check if input is already present in triedChars
-                if (guesses.contains(lowerCaseStringInput)) {
-                    // TODO call check original word
-                    // if so, char is already present. break and go back to game
-                    return false;
-                } else {
+//                if (guesses.contains(lowerCaseStringInput)) {
+//                    // TODO call check original word
+//                    // if so, char is already present. break and go back to game
+//                    return false;
+//                } else {
+//
+//                    // else: input is not a repeat, add string to triedChars
+//                    guesses.add(lowerCaseStringInput);
+//                    return true;
+//                }
 
-                    // else: input is not a repeat, add string to triedChars
-                    guesses.add(lowerCaseStringInput);
-                    return true;
-                }
             }
         } else { // DOn"T need this situation
             String lowerCaseStringInput = input.toLowerCase();
@@ -155,7 +158,8 @@ public class Game {
 
         String[] splitHiddenWord = hiddenWord.split(" ");
         String wholeHiddenWord = String.join("", splitHiddenWord);
+        String wholeHiddenWord2 = hiddenWord.replace(" ", "");
 
-        return wholeHiddenWord.equals(word);
+        return wholeHiddenWord2.equals(word);
     }
 }
