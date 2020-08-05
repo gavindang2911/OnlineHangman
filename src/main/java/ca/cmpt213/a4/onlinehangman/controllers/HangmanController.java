@@ -16,12 +16,21 @@ public class HangmanController {
     private Message promptMessage; //a resusable String object to display a prompt message at the screen
     private AtomicLong nextId = new AtomicLong();
     private List<Game> gameList = new ArrayList<>();
+    private List<String> imagePath  = new ArrayList<>();
 
 
     //works like a constructor, but wait until dependency injection is done, so it's more like a setup
     @PostConstruct
     public void hangmanControllerInit() {
         promptMessage = new Message("Initializing...");
+        imagePath.add("/images/0.png");
+        imagePath.add("/images/1.png");
+        imagePath.add("/images/2.png");
+        imagePath.add("/images/3.png");
+        imagePath.add("/images/4.png");
+        imagePath.add("/images/5.png");
+        imagePath.add("/images/6.png");
+        imagePath.add("/images/7.png");
     }
 
     @GetMapping("/helloworld")
@@ -51,6 +60,7 @@ public class HangmanController {
             game.setNumOfGuesses(0);
             game.setNumOfIncorrectGuesses(0);
             game.setStatus("Active");
+            game.setImage(imagePath.get(0));
         } else {
             System.out.print("Here2  " + game.getWord());
         }
@@ -105,6 +115,7 @@ public class HangmanController {
         }
 
         String attemptLeft = "" + (8 - game.getNumOfIncorrectGuesses());
+        game.setImage(imagePath.get(game.getNumOfIncorrectGuesses()));
         model.addAttribute("game", game);
         model.addAttribute("attemptLeft", attemptLeft);
         model.addAttribute("hiddenWord", hiddenWord);
@@ -138,6 +149,7 @@ public class HangmanController {
                 }
             }
         }
+        // Throw error ID not found
         return "game";
     }
 }

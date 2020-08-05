@@ -6,20 +6,24 @@
     <title>CMPT 213 Online Hangman Game</title>
 </head>
 <body>
-<form th:object="${game}" th:action="@{/score}"
-      modelAttribute="game">
-<h3 >
-    <label th:text="${title}"></label>
-</h3>
+<form th:object="${game}" th:action="@{/game}" modelAttribute="game">
+<!--    <h1>-->
+<!--        <label th:text></label>-->
+<!--    </h1>-->
+    <h1>Game <th:block th:text="${game.id}">message</th:block> page</h1>
+    <h3 >
+        <label th:text="${title}"></label>
+    </h3>
 
-<div class="form-group">
+    <div class="form-group">
 
-    <div>
-        <label>Word: </label>
-        <label th:for="word" th:field="*{word}" th:text="${game.word}"></label>
+        <div>
+            <label>Word: </label>
+            <label th:for="word" th:field="*{word}" th:text="${game.word}"></label>
+        </div>
+
     </div>
-
-</div>
+    <a href="/welcome">Welcome Page</a>
 </form>
 
 </body>

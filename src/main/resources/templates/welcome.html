@@ -4,21 +4,41 @@
     <meta charset="UTF-8">
     <link th:href="@{/styles/main.css}" rel="stylesheet" />
     <title>CMPT 213 Online Hangman Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web">
+    <link rel="stylesheet" href="/styles/main.css" >
+
 </head>
-<body>
-    <img th:src="@{/images/SFULogo.jpg}" />
-    <h1>Welcome to The Hangman Game</h1>
-    <h2>Made by Gavin Dang, 301368907, ttd6@sfu.ca</h2>
-    <p>Hangman is a simple word guessing game, which players try to figure out an hidden word by guessing letters.
-        If too many letters which do not appear in the world are guessed, the player is hanged (and loses)
-    </p>
+<body class="body-class-name">
+    <div class="welcome">
+        <img th:src="@{/images/SFULogo.jpg}" />
+        <div class="introduction">
+            <h1 style="font-weight:bold">Welcome to The Hangman Game</h1><br>
+            <h2>
+                Made by Gavin Dang <br>
+                301368907 <br>
+                ttd6@sfu.ca <br>
+            </h2><br>
+        </div>
+        <h2>Game rule: </h2>
+        <h4>
+            Hangman is a simple word guessing game, which players try to figure out an hidden word by guessing letters.
+        </h4>
+        <h4>
+            If too many letters which do not appear in the world are guessed, the player is hanged (and loses).
+        </h4>
+        <h4>
+            The max number of incorrect guesses is 7 for each game.
+        </h4>
+        <br><br><br>
 
+        <div align="center">
+            <form th:action="@{/game}" th:object="${game}" modelAttribute="game" method="post" style="max-width:600px;">
+                <input type="hidden" th:value="${game.id}" name="gameId" />
+                <input type="submit" class="btn btn-success" value="Start your game!" />
 
-<form th:action="@{/game}" th:object="${game}" modelAttribute="game" method="post" style="max-width:600px;">
-    <h1>Welcome to The Hangman Game</h1>-->
-    <input type="hidden" th:value="${game.id}" name="gameId" />
-    <input type="submit" value="Start your game!" />
-
-</form>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

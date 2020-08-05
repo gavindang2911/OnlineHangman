@@ -14,11 +14,21 @@ public class Game {
     private int numOfGuesses;
     private int numOfIncorrectGuesses; // Max 7
     private String status; // 0: Active, 1:Won, -1:Lost
+    private String image;
+
+
 
     public Game() {
 
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     public void setId(long id) {
         this.id = id;
     }

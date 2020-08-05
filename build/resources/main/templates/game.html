@@ -4,53 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <title>CMPT 213 Online Hangman Game</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web">
+
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" />
+
 </head>
-<body>
-    <div>
-        <div>
-            <label>Game </label>
-            <label th:for="id" th:field="*{id}" th:text="${game.id}"></label>
-            <label>page</label>
-        </div>
-        <!--    <h1 th:text="${gameID}"></h1>-->
-        <div>
-            <label>Game Status:  </label>
-            <label th:for="status" th:field="*{status}" th:text="${game.status}"></label>
-
-    <!--        <h2 th:text="${gameStatus}"></h2>-->
-        </div>
-        <div>
-            <label>You have made   </label>
-            <label th:for="numOfGuess" th:field="*{numOfGuesses}" th:text="${game.numOfGuesses}"></label>
-            <label> guesses</label>
-
-    <!--        <h2 th:text="${gameNumOfGuess}"></h2>-->
-        </div>
-        <div>
-            <label>You have made   </label>
-            <label th:for="numOfIncorrectGuesses" th:field="*{numOfIncorrectGuesses}" th:text="${game.numOfIncorrectGuesses}"></label>
-            <label> incorrect guesses</label>
-    <!--        <h2 th:text="${gameNumOfIncorrectGuess}"></h2>-->
-        </div>
-        <div>
-            <label>Attempts left: </label>
-            <label th:for="attemptLeft" th:field="*{attemptLeft}" th:text="${attemptLeft}"></label>
-
-    <!--        <h2 th:text="${attemptLeft}"></h2>-->
-        </div>
-    </div>
-    <div >
-        <label> Progress:  </p></label>
-        <p th:text="${hiddenWord}"></p>
-    </div>
-    <form th:object="${game}" th:action="@{/game/{gid}(gid=${game.id})}"  modelAttribute="game" method="post" style="max-width:600px;">
-        <div class="form-group">
-            <div>
-                <label>Your guess:  </label>
-                <input class="input" th:name="userInput" />
+<body class="body-class-name">
+    <form th:object="${game}" th:action="@{/game/{gid}(gid=${game.id})}"  modelAttribute="game" method="post" >
+        <div class="game">
+            <div class="GameID">
+                <label>Game </label>
+                <label th:for="id" th:field="*{id}" th:text="${game.id}"></label>
+                <label>page</label>
             </div>
+            <br><br>
+            <!--    <h1 th:text="${gameID}"></h1>-->
+            <img th:src="${game.image}" /><br/>
+            <div class="contentGame">
+                <div>
+                    <label>Game Status:  </label>
+                    <label th:for="status" th:field="*{status}" th:text="${game.status}"></label>
+
+            <!--        <h2 th:text="${gameStatus}"></h2>-->
+                </div>
+                <div>
+                    <label>You have made   </label>
+                    <label th:for="numOfGuess" th:field="*{numOfGuesses}" th:text="${game.numOfGuesses}"></label>
+                    <label> guesses</label>
+
+            <!--        <h2 th:text="${gameNumOfGuess}"></h2>-->
+                </div>
+                <div>
+                    <label>You have made   </label>
+                    <label th:for="numOfIncorrectGuesses" th:field="*{numOfIncorrectGuesses}" th:text="${game.numOfIncorrectGuesses}"></label>
+                    <label> incorrect guesses</label>
+            <!--        <h2 th:text="${gameNumOfIncorrectGuess}"></h2>-->
+                </div>
+                <div>
+                    <label>Attempts left: </label>
+                    <label  th:text="${attemptLeft}"></label>
+
+            <!--        <h2 th:text="${attemptLeft}"></h2>-->
+                </div>
+            </div>
+            <br>
+            <div class="hiddenWord">
+                <p th:text="${hiddenWord}"></p>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Your guess:</label>
+                    <input class="form-control" th:name="userInput"  placeholder="Enter your guess" autocomplete="off">
+                    <small class="form-text text-muted">Please enter a single letter</small>
+                </div>
+                <input type="submit" class="btn btn-success" value="Make a guess!" />
+            </form>
+            <a href="/welcome">Welcome Page</a>
         </div>
-        <input type="submit" value="Make a guess!" />
     </form>
 
 
