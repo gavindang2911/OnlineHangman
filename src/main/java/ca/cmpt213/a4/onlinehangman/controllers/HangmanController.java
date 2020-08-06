@@ -31,6 +31,8 @@ public class HangmanController {
         imagePath.add("/images/5.png");
         imagePath.add("/images/6.png");
         imagePath.add("/images/7.png");
+        imagePath.add("/images/8.png");
+
     }
 
     @GetMapping("/helloworld")
@@ -108,6 +110,7 @@ public class HangmanController {
 
         if (game.getNumOfIncorrectGuesses() > 7) {
             game.setStatus("Lost");
+            game.setImage(imagePath.get(game.getNumOfIncorrectGuesses()));
             model.addAttribute("title", "Game Over - You Lost");
             model.addAttribute("game", game);
 

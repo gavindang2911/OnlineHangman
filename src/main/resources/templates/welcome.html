@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/styles/main.css" >
 
 </head>
-<body class="body-class-name">
+<body>
     <div class="welcome">
         <img th:src="@{/images/SFULogo.jpg}" />
         <div class="introduction">
@@ -35,7 +35,7 @@
         <div align="center">
             <form th:action="@{/game}" th:object="${game}" modelAttribute="game" method="post" style="max-width:600px;">
                 <input type="hidden" th:value="${game.id}" name="gameId" />
-                <input type="submit" class="btn btn-danger" value="Start your game!" />
+                <input type="submit" class="btn btn-primary btn-lg" value="Start your game!" />
 
             </form>
         </div>

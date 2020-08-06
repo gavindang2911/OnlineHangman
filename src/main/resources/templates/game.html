@@ -11,7 +11,7 @@
     <link href="/styles/main.css" rel="stylesheet" type="text/css" />
 
 </head>
-<body class="body-class-name">
+<body>
     <form th:object="${game}" th:action="@{/game/{gid}(gid=${game.id})}"  modelAttribute="game" method="post" >
         <div class="game">
             <div class="GameID">

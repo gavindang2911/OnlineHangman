@@ -4,26 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <title>CMPT 213 Online Hangman Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web">
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <form th:object="${game}" th:action="@{/game}" modelAttribute="game">
-<!--    <h1>-->
-<!--        <label th:text></label>-->
-<!--    </h1>-->
-    <h1>Game <th:block th:text="${game.id}">message</th:block> page</h1>
-    <h3 >
-        <label th:text="${title}"></label>
-    </h3>
+    <div class="gameover">
+        <div class="overTitle">
+            <div class="GameID">
+                <label>Game </label>
+                <label th:for="id" th:field="*{id}" th:text="${game.id}"></label>
+                <label>page</label>
+            </div>
+            <h3 >
+                <label th:text="${title}"></label>
+            </h3>
 
-    <div class="form-group">
 
-        <div>
-            <label>Word: </label>
-            <label th:for="word" th:field="*{word}" th:text="${game.word}"></label>
+            <div th:style="|${game.status == 'Won' ? 'color: green;' : 'color: red;'}|">
+
+                <label >Original Word: </label>
+                <label th:for="word" th:field="*{word}" th:text="${game.word}"></label>
+            </div>
         </div>
-
+        <br>
+        <a href="/welcome">Welcome Page</a>
+        <br><br><br><br>
+        <img th:src="${game.image}" />
     </div>
-    <a href="/welcome">Welcome Page</a>
 </form>
 
 </body>
