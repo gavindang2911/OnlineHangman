@@ -2,9 +2,11 @@ package ca.cmpt213.a4.onlinehangman.controllers;
 
 import ca.cmpt213.a4.onlinehangman.model.Game;
 import ca.cmpt213.a4.onlinehangman.model.Message;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -153,6 +155,15 @@ public class HangmanController {
             }
         }
         // Throw error ID not found
-        return "game";
+        throw new GameNotFoundException();
     }
+
+    @ExceptionHandler(GameNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ModelAndView handleException() {
+        ModelAndView model = new ModelAndView("gamenotfound");
+        return model;
+    }
+
+
 }

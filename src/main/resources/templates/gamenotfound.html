@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CMPT 213 Online Hangman Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web">
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="notfound">
+        <img th:src="@{/images/SFULogo.jpg}" />
+        <div>
+            <h1>Ooppsss! Game not found.</h1>
+            <h5>We couldn't find that game with a given ID</h5>
+        </div>
+        <br><br><br>
+        <a href="/welcome">
+            <button class="btn-lg btn-dark mb-1">Return To Welcome page</button>
+        </a>
+
+    </div>
+    <div class="footer-padding"></div>
+    <div class="footer">
+        <p>Made by Gavin Dang, 2020</p>
+    </div>
+    </div>
+</body>
+</html>

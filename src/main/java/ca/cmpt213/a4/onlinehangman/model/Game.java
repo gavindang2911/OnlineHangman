@@ -14,7 +14,7 @@ public class Game {
     private int numOfGuesses;
     private int numOfIncorrectGuesses; // Max 7
     private String status; // 0: Active, 1:Won, -1:Lost
-    private String image;
+    private String image = "/images/0.png";
 
 
 
