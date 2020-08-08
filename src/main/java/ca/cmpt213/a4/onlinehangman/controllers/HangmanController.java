@@ -1,7 +1,6 @@
 package ca.cmpt213.a4.onlinehangman.controllers;
 
 import ca.cmpt213.a4.onlinehangman.model.Game;
-import ca.cmpt213.a4.onlinehangman.model.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+
+/**
+ * A class HangmanController for handling all the post and get requests from the users. This class
+ * control the system and return the html template
+ *
+ * @author Gavin Dang (301368907) ttd6@sfu.ca
+ */
 @Controller
 public class HangmanController {
-    private Message promptMessage; //a resusable String object to display a prompt message at the screen
     private AtomicLong nextId = new AtomicLong();
     private List<Game> gameList = new ArrayList<>();
     private List<String> imagePath  = new ArrayList<>();
@@ -24,7 +29,6 @@ public class HangmanController {
     //works like a constructor, but wait until dependency injection is done, so it's more like a setup
     @PostConstruct
     public void hangmanControllerInit() {
-        promptMessage = new Message("Initializing...");
         imagePath.add("/images/0.png");
         imagePath.add("/images/1.png");
         imagePath.add("/images/2.png");
@@ -37,16 +41,6 @@ public class HangmanController {
 
     }
 
-    @GetMapping("/helloworld")
-    public String showHelloworldPage(Model model) {
-
-
-        promptMessage.setMessage("THis is cmpt 213");
-        model.addAttribute("promptMessage", promptMessage);
-
-        // take the user to helloworld.html
-        return "helloworld"; // Return to the html
-    }
 
     @GetMapping("/welcome")
     public String showWelcome(Model model) {
@@ -55,19 +49,17 @@ public class HangmanController {
     }
 
     @PostMapping("/game")
-    public String processGame(@ModelAttribute("game") Game game, Model model) {
+    public String gameStart(@ModelAttribute("game") Game game, Model model) {
         if (game.getWord().isEmpty()) {
             String word = game.generateRandomWord();
-            System.out.print("Here1  " + word);
             game.setId(nextId.incrementAndGet());
             game.setWord(word);
             game.setNumOfGuesses(0);
             game.setNumOfIncorrectGuesses(0);
             game.setStatus("Active");
             game.setImage(imagePath.get(0));
-        } else {
-            System.out.print("Here2  " + game.getWord());
         }
+        System.out.print("Word  " + game.getWord());
 
         gameList.add(game);
         String attemptLeft = "" + (8 - game.getNumOfIncorrectGuesses());
@@ -82,15 +74,14 @@ public class HangmanController {
     }
 
     @PostMapping("game/{gameId}")
-    public String gameInPlayPosted(@PathVariable int gameId, @RequestParam String userInput,
+    public String gameInProcess(@PathVariable int gameId, @RequestParam String userInput,
                                    Model model, @ModelAttribute("game") Game game) {
 
         game = gameList.get(gameId - 1);
-        System.out.print("Here3  " + game.getWord());
 
-        // validate user input
+
+        // validate input from the user
         if (!game.validateInput(userInput)) {
-            // generate the word as underlines
             String hiddenWord = game.createHiddenWord();
             String attemptLeft = "" + (8 - game.getNumOfIncorrectGuesses());
             model.addAttribute("game", game);
@@ -164,6 +155,5 @@ public class HangmanController {
         ModelAndView model = new ModelAndView("gamenotfound");
         return model;
     }
-
 
 }

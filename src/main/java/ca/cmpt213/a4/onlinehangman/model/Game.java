@@ -7,15 +7,20 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * A class Game represents for Game object, which holds information of a hangman game
+ * such as game id, the hidden word, number of guesses and status of the game,,..
+ *
+ * @author Gavin Dang (301368907) ttd6@sfu.ca
+ */
 public class Game {
     private long id;
     private String word = "";
     private List<String> guesses = new ArrayList<>();
     private int numOfGuesses;
     private int numOfIncorrectGuesses; // Max 7
-    private String status; // 0: Active, 1:Won, -1:Lost
-    private String image = "/images/0.png";
-
+    private String status; //  Active, Won, -Lost
+    private String image = "";
 
 
     public Game() {
@@ -29,6 +34,7 @@ public class Game {
     public void setImage(String image) {
         this.image = image;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -77,7 +83,7 @@ public class Game {
         return status;
     }
 
-    public String generateRandomWord(){
+    public String generateRandomWord() {
         try {
             File myObj = new File("./src/commonWords.txt");
             Scanner myReader = new Scanner(myObj);
@@ -106,46 +112,30 @@ public class Game {
             char letter = lowerCaseStringInput.charAt(0);
 
             if (letter >= 'a' && letter <= 'z') {
-                if(!this.word.contains(lowerCaseStringInput)){
+                if (!this.word.contains(lowerCaseStringInput)) {
                     numOfIncorrectGuesses++;
                 }
                 numOfGuesses++;
                 guesses.add(lowerCaseStringInput);
                 return true;
-                // else: check if input is already present in triedChars
-//                if (guesses.contains(lowerCaseStringInput)) {
-//                    // TODO call check original word
-//                    // if so, char is already present. break and go back to game
-//                    return false;
-//                } else {
-//
-//                    // else: input is not a repeat, add string to triedChars
-//                    guesses.add(lowerCaseStringInput);
-//                    return true;
-//                }
-
             }
         }
         return false;
     }
 
+    // Create hidden word for revealing the correct guess
     public String createHiddenWord() {
         StringBuilder hiddenWord = new StringBuilder();
-
-        for (String character: word.split("")) {
+        for (String character : word.split("")) {
             boolean isFound = false;
-
-            for (String guess: guesses) {
+            for (String guess : guesses) {
                 if (character.equals(guess)) {
                     hiddenWord.append(character).append(" ");
                     isFound = true;
                     break;
                 }
             }
-
-            if(!isFound) {
-                // else, if the char in originalWord does not match a char in tries,
-                // replace it with underline
+            if (!isFound) {
                 hiddenWord.append("_ ");
             }
         }
@@ -154,11 +144,7 @@ public class Game {
 
 
     public boolean checkIfWin(String hiddenWord) {
-
-        String[] splitHiddenWord = hiddenWord.split(" ");
-        String wholeHiddenWord = String.join("", splitHiddenWord);
         String wholeHiddenWord2 = hiddenWord.replace(" ", "");
-
         return wholeHiddenWord2.equals(word);
     }
 }

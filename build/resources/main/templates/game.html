@@ -56,7 +56,7 @@
             <form>
                 <div class="form-group">
                     <label>Your guess:</label>
-                    <input class="form-control" th:name="userInput"  placeholder="Enter your guess" autocomplete="off">
+                    <input class="form-control" maxlength="1" th:name="userInput"  placeholder="Enter your guess" autocomplete="off">
                     <small class="form-text text-muted">Please enter a single letter</small>
                 </div>
                 <input type="submit" class="btn btn-success" value="Make a guess!" />
